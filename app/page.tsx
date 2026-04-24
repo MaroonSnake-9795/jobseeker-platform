@@ -1,65 +1,148 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-slate-950 text-white">
+      {/* Navigation */}
+      <nav className="flex items-center justify-between px-8 py-5 border-b border-slate-800">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center font-bold text-sm">
+            J
+          </div>
+          <span className="text-xl font-bold text-white">JobSync</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="flex items-center gap-6 text-sm text-slate-400">
+          <Link href="#" className="hover:text-white transition">
+            Find Jobs
+          </Link>
+          <Link href="#" className="hover:text-white transition">
+            Companies
+          </Link>
+          <Link href="#" className="hover:text-white transition">
+            Community
+          </Link>
+          <Link
+            href="#"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-400 transition"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            Sign Up Free
+          </Link>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center px-6 py-32">
+        <div className="bg-blue-500/10 text-blue-400 text-sm px-4 py-1.5 rounded-full mb-6 border border-blue-500/20">
+          🚀 Your AI-powered career companion
+        </div>
+        <h1 className="text-6xl font-bold text-white mb-6 max-w-3xl leading-tight">
+          Find Jobs. Build Resumes.
+          <span className="text-blue-400"> Apply Automatically.</span>
+        </h1>
+        <p className="text-slate-400 text-xl mb-10 max-w-xl">
+          One platform to search all jobs, create the perfect resume with AI,
+          and apply automatically — without lifting a finger.
+        </p>
+        <div className="flex items-center gap-3 w-full max-w-xl bg-slate-900 border border-slate-700 rounded-xl px-4 py-3">
+          <svg
+            className="w-5 h-5 text-slate-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search jobs, companies, or roles..."
+            className="flex-1 bg-transparent text-white placeholder-slate-500 outline-none text-sm"
+          />
+          <button className="bg-blue-500 text-white px-5 py-2 rounded-lg text-sm hover:bg-blue-400 transition font-medium">
+            Search
+          </button>
         </div>
-      </main>
-    </div>
+        <p className="text-slate-600 text-sm mt-4">
+          Popular: Software Engineer, Data Analyst, Product Manager
+        </p>
+      </section>
+
+      {/* Features Section */}
+      <section className="px-8 py-20 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-4">
+          Everything you need in one place
+        </h2>
+        <p className="text-slate-400 text-center mb-14">
+          Stop wasting time on multiple websites
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            {
+              icon: "🔍",
+              title: "Unified Job Search",
+              desc: "Search thousands of jobs from Indeed, LinkedIn, Glassdoor and more — all in one place.",
+            },
+            {
+              icon: "📄",
+              title: "AI Resume Builder",
+              desc: "Answer a few questions and our AI builds a perfect, ATS-friendly resume tailored to you.",
+            },
+            {
+              icon: "⚡",
+              title: "Auto-Apply",
+              desc: "Set your preferences and let our bot apply to matching jobs automatically on your behalf.",
+            },
+            {
+              icon: "✉️",
+              title: "Cover Letter AI",
+              desc: "Get a personalized cover letter generated for every job you apply to automatically.",
+            },
+            {
+              icon: "🏢",
+              title: "Company Insights",
+              desc: "Read reviews, salary data, and culture insights for every company — like Glassdoor built in.",
+            },
+            {
+              icon: "👥",
+              title: "Community",
+              desc: "Connect with other job seekers, share tips, referrals, and support each other.",
+            },
+          ].map((feature) => (
+            <div
+              key={feature.title}
+              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/40 transition"
+            >
+              <div className="text-3xl mb-4">{feature.icon}</div>
+              <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                {feature.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="text-center px-6 py-24 border-t border-slate-800">
+        <h2 className="text-4xl font-bold mb-4">
+          Ready to land your dream job?
+        </h2>
+        <p className="text-slate-400 mb-8">
+          Join thousands of job seekers already using JobSync
+        </p>
+        <button className="bg-blue-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-400 transition">
+          Get Started for Free
+        </button>
+      </section>
+
+      {/* Footer */}
+      <footer className="text-center py-8 text-slate-600 text-sm border-t border-slate-800">
+        © 2025 JobSync. Built for job seekers, by job seekers.
+      </footer>
+    </main>
   );
 }

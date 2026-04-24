@@ -12,24 +12,23 @@ export default function Home() {
           <span className="text-xl font-bold text-white">JobSync</span>
         </div>
         <div className="flex items-center gap-6 text-sm text-slate-400">
-          <Link href="#" className="hover:text-white transition">
+          <Link href="/jobs" className="hover:text-white transition">
             Find Jobs
           </Link>
-          <Link href="#" className="hover:text-white transition">
-            Companies
-          </Link>
-          <Link href="#" className="hover:text-white transition">
+          <Link href="/community" className="hover:text-white transition">
             Community
           </Link>
+          <Link href="/dashboard" className="hover:text-white transition">
+            Dashboard
+          </Link>
           <Link
-            href="#"
+            href="/auth"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-400 transition"
           >
             Sign Up Free
           </Link>
         </div>
       </nav>
-
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-32">
         <div className="bg-blue-500/10 text-blue-400 text-sm px-4 py-1.5 rounded-full mb-6 border border-blue-500/20">
@@ -62,9 +61,12 @@ export default function Home() {
             placeholder="Search jobs, companies, or roles..."
             className="flex-1 bg-transparent text-white placeholder-slate-500 outline-none text-sm"
           />
-          <button className="bg-blue-500 text-white px-5 py-2 rounded-lg text-sm hover:bg-blue-400 transition font-medium">
+          <Link
+            href="/jobs"
+            className="bg-blue-500 text-white px-5 py-2 rounded-lg text-sm hover:bg-blue-400 transition font-medium"
+          >
             Search
-          </button>
+          </Link>
         </div>
         <p className="text-slate-600 text-sm mt-4">
           Popular: Software Engineer, Data Analyst, Product Manager
@@ -134,9 +136,12 @@ export default function Home() {
         <p className="text-slate-400 mb-8">
           Join thousands of job seekers already using JobSync
         </p>
-        <button className="bg-blue-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-400 transition">
+        <Link
+          href="/auth"
+          className="bg-blue-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-400 transition"
+        >
           Get Started for Free
-        </button>
+        </Link>
       </section>
 
       {/* Footer */}

@@ -108,11 +108,14 @@ export default function JobsPage() {
           <Link href="/jobs" className="text-white font-medium">
             Find Jobs
           </Link>
-          <Link href="#" className="hover:text-white transition">
-            Companies
-          </Link>
-          <Link href="#" className="hover:text-white transition">
+          <Link href="/community" className="hover:text-white transition">
             Community
+          </Link>
+          <Link href="/resume" className="hover:text-white transition">
+            Resume
+          </Link>
+          <Link href="/dashboard" className="hover:text-white transition">
+            Dashboard
           </Link>
           <Link
             href="/auth"
@@ -211,9 +214,12 @@ export default function JobsPage() {
                 </div>
                 {/* Actions */}
                 <div className="flex flex-col gap-2 shrink-0">
-                  <button className="bg-blue-500 hover:bg-blue-400 transition text-white text-sm font-medium px-5 py-2 rounded-xl">
+                  <Link
+                    href="/auth"
+                    className="bg-blue-500 hover:bg-blue-400 transition text-white text-sm font-medium px-5 py-2 rounded-xl"
+                  >
                     Apply Now
-                  </button>
+                  </Link>
                   <button
                     onClick={() => toggleSave(job.id)}
                     className={`text-sm font-medium px-5 py-2 rounded-xl border transition ${

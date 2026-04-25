@@ -52,7 +52,7 @@ const questions = [
     id: "summary",
     label: "Describe yourself in 2-3 sentences.",
     placeholder:
-      "I am a dedicated customer operations professional with 4+ years of BPO experience...",
+      "Dedicated customer operations professional with 4+ years of BPO experience...",
   },
 ];
 
@@ -62,6 +62,7 @@ export default function ResumePage() {
   const [current, setCurrent] = useState("");
   const [resume, setResume] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleNext = () => {
     if (!current.trim()) return;
@@ -205,31 +206,67 @@ export default function ResumePage() {
               <div className="text-4xl mb-4">🎉</div>
               <h2 className="text-3xl font-bold mb-2">Your resume is ready!</h2>
               <p className="text-slate-400">
-                Review it below. You can copy it or start over.
+                Review it below. You can edit, copy or start over.
               </p>
             </div>
-            <div className="bg-white text-slate-900 rounded-2xl p-8 whitespace-pre-wrap text-sm leading-relaxed font-mono">
-              {resume}
-            </div>
-            <div className="flex gap-4 mt-6">
-              <button
-                onClick={() => navigator.clipboard.writeText(resume)}
-                className="flex-1 bg-blue-500 hover:bg-blue-400 transition text-white font-semibold py-3 rounded-xl"
-              >
-                Copy Resume
-              </button>
-              <button
-                onClick={() => {
-                  setResume("");
-                  setStep(0);
-                  setAnswers({});
-                  setCurrent("");
-                }}
-                className="flex-1 bg-slate-800 hover:bg-slate-700 transition text-white font-semibold py-3 rounded-xl"
-              >
-                Start Over
-              </button>
-            </div>
+
+            {/* Resume Content */}
+            {isEditing ? (
+              <div className="flex flex-col gap-3">
+                <textarea
+                  value={resume}
+                  onChange={(e) => setResume(e.target.value)}
+                  rows={20}
+                  className="w-full bg-white text-slate-900 rounded-2xl p-8 text-sm leading-relaxed font-mono outline-none resize-none"
+                />
+                <button
+                  onClick={() => setIsEditing(false)}
+                  className="w-full bg-green-500 hover:bg-green-400 transition text-white font-semibold py-3 rounded-xl"
+                >
+                  ✓ Save Changes
+                </button>
+              </div>
+            ) : (
+              <div className="bg-white text-slate-900 rounded-2xl p-8 whitespace-pre-wrap text-sm leading-relaxed font-mono">
+                {resume}
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            {!isEditing && (
+              <div className="flex flex-col gap-3 mt-6">
+                <Link
+                  href="/auto-apply"
+                  className="w-full bg-blue-500 hover:bg-blue-400 transition text-white font-semibold py-3 rounded-xl text-center"
+                >
+                  ⚡ Use This Resume for Auto-Apply
+                </Link>
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="w-full bg-slate-700 hover:bg-slate-600 transition text-white font-semibold py-3 rounded-xl"
+                >
+                  ✏️ Edit Resume
+                </button>
+                <button
+                  onClick={() => navigator.clipboard.writeText(resume)}
+                  className="w-full bg-slate-800 hover:bg-slate-700 transition text-white font-semibold py-3 rounded-xl"
+                >
+                  📋 Copy Resume
+                </button>
+                <button
+                  onClick={() => {
+                    setResume("");
+                    setStep(0);
+                    setAnswers({});
+                    setCurrent("");
+                    setIsEditing(false);
+                  }}
+                  className="w-full border border-slate-700 hover:border-slate-500 transition text-slate-400 font-semibold py-3 rounded-xl"
+                >
+                  Start Over
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

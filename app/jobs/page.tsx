@@ -1,98 +1,48 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const sampleJobs = [
-  {
-    id: 1,
-    title: "Customer Support Specialist",
-    company: "Infosys BPO",
-    location: "Bangalore, India",
-    salary: "₹4L - ₹6L/year",
-    type: "Full-time",
-    posted: "2 days ago",
-    logo: "I",
-    color: "bg-blue-500",
-    tags: ["Customer Service", "Salesforce", "SLA Management"],
-  },
-  {
-    id: 2,
-    title: "Operations Analyst",
-    company: "Concentrix",
-    location: "Bangalore, India",
-    salary: "₹5L - ₹8L/year",
-    type: "Full-time",
-    posted: "1 day ago",
-    logo: "C",
-    color: "bg-purple-500",
-    tags: ["Operations", "Tableau", "Reporting"],
-  },
-  {
-    id: 3,
-    title: "Quality Assurance Lead",
-    company: "Wipro",
-    location: "Bangalore, India",
-    salary: "₹6L - ₹10L/year",
-    type: "Full-time",
-    posted: "3 days ago",
-    logo: "W",
-    color: "bg-green-500",
-    tags: ["QA", "ServiceNow", "Team Lead"],
-  },
-  {
-    id: 4,
-    title: "Senior CX Specialist",
-    company: "Teleperformance",
-    location: "Bangalore, India",
-    salary: "₹4.5L - ₹7L/year",
-    type: "Full-time",
-    posted: "Today",
-    logo: "T",
-    color: "bg-orange-500",
-    tags: ["CX", "Escalation", "BPO"],
-  },
-  {
-    id: 5,
-    title: "Process Trainer",
-    company: "HCL Technologies",
-    location: "Bangalore, India",
-    salary: "₹5L - ₹9L/year",
-    type: "Full-time",
-    posted: "5 days ago",
-    logo: "H",
-    color: "bg-red-500",
-    tags: ["Training", "Process", "Communication"],
-  },
-  {
-    id: 6,
-    title: "Team Leader - Customer Ops",
-    company: "Sutherland Global",
-    location: "Bangalore, India",
-    salary: "₹6L - ₹11L/year",
-    type: "Full-time",
-    posted: "1 day ago",
-    logo: "S",
-    color: "bg-teal-500",
-    tags: ["Leadership", "Customer Ops", "KPI"],
-  },
-];
-
 export default function JobsPage() {
+  const [jobs, setJobs] = useState<any[]>([]);
   const [search, setSearch] = useState("");
-  const [saved, setSaved] = useState<number[]>([]);
+  const [location, setLocation] = useState("Bangalore");
+  const [loading, setLoading] = useState(true);
+  const [saved, setSaved] = useState<string[]>([]);
 
-  const toggleSave = (id: number) => {
+  const fetchJobs = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `/api/jobs?query=${encodeURIComponent(search || "customer support")}&location=${encodeURIComponent(location)}`,
+      );
+      const data = await res.json();
+      setJobs(data.jobs || []);
+    } catch {
+      setJobs([]);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const toggleSave = (id: string) => {
     setSaved((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id],
     );
   };
 
-  const filtered = sampleJobs.filter(
-    (job) =>
-      job.title.toLowerCase().includes(search.toLowerCase()) ||
-      job.company.toLowerCase().includes(search.toLowerCase()) ||
-      job.tags.some((t) => t.toLowerCase().includes(search.toLowerCase())),
-  );
+  const colors = [
+    "bg-blue-500",
+    "bg-purple-500",
+    "bg-green-500",
+    "bg-orange-500",
+    "bg-red-500",
+    "bg-teal-500",
+    "bg-pink-500",
+    "bg-yellow-500",
+  ];
 
   return (
     <main className="min-h-screen bg-slate-950 text-white">
@@ -128,10 +78,10 @@ export default function JobsPage() {
 
       {/* Search Bar */}
       <div className="bg-slate-900 border-b border-slate-800 px-8 py-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3">
+        <div className="max-w-4xl mx-auto flex gap-3">
+          <div className="flex items-center gap-3 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 flex-1">
             <svg
-              className="w-5 h-5 text-slate-400"
+              className="w-5 h-5 text-slate-400 shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -145,106 +95,113 @@ export default function JobsPage() {
             </svg>
             <input
               type="text"
-              placeholder="Search by job title, company, or skill..."
+              placeholder="Job title or keyword..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="flex-1 bg-transparent text-white placeholder-slate-500 outline-none text-sm"
             />
-            {search && (
-              <button
-                onClick={() => setSearch("")}
-                className="text-slate-500 hover:text-white text-xs"
-              >
-                Clear
-              </button>
-            )}
           </div>
-          <p className="text-slate-500 text-sm mt-3">
-            {filtered.length} jobs found in Bangalore
-          </p>
+          <div className="flex items-center gap-3 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 w-48">
+            <span className="text-slate-400 text-sm">📍</span>
+            <input
+              type="text"
+              placeholder="Location..."
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="flex-1 bg-transparent text-white placeholder-slate-500 outline-none text-sm"
+            />
+          </div>
+          <button
+            onClick={fetchJobs}
+            className="bg-blue-500 hover:bg-blue-400 transition text-white font-semibold px-6 py-3 rounded-xl text-sm"
+          >
+            Search
+          </button>
         </div>
       </div>
 
       {/* Jobs List */}
       <div className="max-w-4xl mx-auto px-8 py-8">
-        <div className="flex flex-col gap-4">
-          {filtered.map((job) => (
-            <div
-              key={job.id}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/40 transition group"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-start gap-4">
-                  {/* Logo */}
-                  <div
-                    className={`w-12 h-12 ${job.color} rounded-xl flex items-center justify-center font-bold text-lg shrink-0`}
-                  >
-                    {job.logo}
-                  </div>
-                  {/* Info */}
-                  <div>
-                    <h3 className="text-lg font-semibold group-hover:text-blue-400 transition">
-                      {job.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm mt-0.5">
-                      {job.company} · {job.location}
-                    </p>
-                    <div className="flex items-center gap-3 mt-3 flex-wrap">
-                      <span className="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full">
-                        {job.type}
-                      </span>
-                      <span className="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full">
-                        {job.salary}
-                      </span>
-                      <span className="text-slate-500 text-xs">
-                        {job.posted}
-                      </span>
+        {loading ? (
+          <div className="text-center py-32">
+            <div className="text-5xl mb-6 animate-bounce">🔍</div>
+            <h2 className="text-2xl font-bold mb-3">Finding jobs for you...</h2>
+            <p className="text-slate-400">
+              Searching real job listings from multiple sources.
+            </p>
+          </div>
+        ) : (
+          <>
+            <p className="text-slate-500 text-sm mb-6">
+              {jobs.length} jobs found
+            </p>
+            <div className="flex flex-col gap-4">
+              {jobs.map((job, index) => (
+                <div
+                  key={job.id}
+                  className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/40 transition group"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`w-12 h-12 ${colors[index % colors.length]} rounded-xl flex items-center justify-center font-bold text-lg shrink-0`}
+                      >
+                        {job.logo}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold group-hover:text-blue-400 transition">
+                          {job.title}
+                        </h3>
+                        <p className="text-slate-400 text-sm mt-0.5">
+                          {job.company} · {job.location}
+                        </p>
+                        <div className="flex items-center gap-3 mt-3 flex-wrap">
+                          <span className="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full">
+                            {job.type}
+                          </span>
+                          <span className="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full">
+                            {job.salary}
+                          </span>
+                        </div>
+                        <p className="text-slate-500 text-xs mt-3 leading-relaxed">
+                          {job.description}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex gap-2 mt-3 flex-wrap">
-                      {job.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="bg-blue-500/10 text-blue-400 text-xs px-2.5 py-1 rounded-lg border border-blue-500/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                    <div className="flex flex-col gap-2 shrink-0">
+                      <button
+                        onClick={() => window.open(job.applyLink, "_blank")}
+                        className="bg-blue-500 hover:bg-blue-400 transition text-white text-sm font-medium px-5 py-2 rounded-xl"
+                      >
+                        Apply Now
+                      </button>
+                      <button
+                        onClick={() => toggleSave(job.id)}
+                        className={`text-sm font-medium px-5 py-2 rounded-xl border transition ${
+                          saved.includes(job.id)
+                            ? "bg-blue-500/10 border-blue-500/40 text-blue-400"
+                            : "border-slate-700 text-slate-400 hover:border-slate-500"
+                        }`}
+                      >
+                        {saved.includes(job.id) ? "✓ Saved" : "Save"}
+                      </button>
                     </div>
                   </div>
                 </div>
-                {/* Actions */}
-                <div className="flex flex-col gap-2 shrink-0">
-                  <Link
-                    href="/auth"
-                    className="bg-blue-500 hover:bg-blue-400 transition text-white text-sm font-medium px-5 py-2 rounded-xl"
-                  >
-                    Apply Now
-                  </Link>
-                  <button
-                    onClick={() => toggleSave(job.id)}
-                    className={`text-sm font-medium px-5 py-2 rounded-xl border transition ${
-                      saved.includes(job.id)
-                        ? "bg-blue-500/10 border-blue-500/40 text-blue-400"
-                        : "border-slate-700 text-slate-400 hover:border-slate-500"
-                    }`}
-                  >
-                    {saved.includes(job.id) ? "✓ Saved" : "Save"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+              ))}
 
-          {filtered.length === 0 && (
-            <div className="text-center py-20 text-slate-500">
-              <p className="text-4xl mb-4">🔍</p>
-              <p className="text-lg font-medium">No jobs found</p>
-              <p className="text-sm mt-1">
-                Try searching with different keywords
-              </p>
+              {jobs.length === 0 && (
+                <div className="text-center py-20 text-slate-500">
+                  <p className="text-4xl mb-4">🔍</p>
+                  <p className="text-lg font-medium">No jobs found</p>
+                  <p className="text-sm mt-1">
+                    Try different keywords or location
+                  </p>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </main>
   );

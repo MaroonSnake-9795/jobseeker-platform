@@ -87,43 +87,50 @@ export default function Home() {
               icon: "🔍",
               title: "Unified Job Search",
               desc: "Search thousands of jobs from Indeed, LinkedIn, Glassdoor and more — all in one place.",
+              href: "/jobs",
             },
             {
               icon: "📄",
               title: "AI Resume Builder",
               desc: "Answer a few questions and our AI builds a perfect, ATS-friendly resume tailored to you.",
+              href: "/resume",
             },
             {
               icon: "⚡",
               title: "Auto-Apply",
               desc: "Set your preferences and let our bot apply to matching jobs automatically on your behalf.",
+              href: "/dashboard",
             },
             {
               icon: "✉️",
               title: "Cover Letter AI",
               desc: "Get a personalized cover letter generated for every job you apply to automatically.",
+              href: "/cover-letter",
             },
             {
               icon: "🏢",
               title: "Company Insights",
               desc: "Read reviews, salary data, and culture insights for every company — like Glassdoor built in.",
+              href: "/community",
             },
             {
               icon: "👥",
               title: "Community",
               desc: "Connect with other job seekers, share tips, referrals, and support each other.",
+              href: "/community",
             },
           ].map((feature) => (
-            <div
+            <Link
               key={feature.title}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/40 transition"
+              href={feature.href}
+              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/40 hover:bg-slate-800/50 transition cursor-pointer"
             >
               <div className="text-3xl mb-4">{feature.icon}</div>
               <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
                 {feature.desc}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

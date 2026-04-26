@@ -70,6 +70,12 @@ export default function DashboardPage() {
             Find Jobs
           </Link>
           <Link
+            href="/auto-apply"
+            className="text-slate-400 hover:text-white transition"
+          >
+            Auto-Apply
+          </Link>
+          <Link
             href="/resume"
             className="text-slate-400 hover:text-white transition"
           >
@@ -80,6 +86,12 @@ export default function DashboardPage() {
             className="text-slate-400 hover:text-white transition"
           >
             Cover Letter
+          </Link>
+          <Link
+            href="/community"
+            className="text-slate-400 hover:text-white transition"
+          >
+            Community
           </Link>
           <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center font-bold text-sm">
             J
@@ -157,7 +169,6 @@ export default function DashboardPage() {
         {/* Overview Tab */}
         {activeTab === "overview" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Recent Jobs */}
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
               <h2 className="text-lg font-semibold mb-4">Recent Saved Jobs</h2>
               <div className="flex flex-col gap-3">
@@ -190,34 +201,27 @@ export default function DashboardPage() {
               </Link>
             </div>
 
-            {/* Quick Actions */}
             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
               <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
               <div className="flex flex-col gap-3">
                 {[
+                  { icon: "🔍", label: "Search New Jobs", href: "/jobs" },
                   {
-                    icon: "🔍",
-                    label: "Search New Jobs",
-                    href: "/jobs",
-                    color: "hover:border-blue-500/40",
+                    icon: "⚡",
+                    label: "Auto-Apply to Jobs",
+                    href: "/auto-apply",
                   },
-                  {
-                    icon: "📄",
-                    label: "Update My Resume",
-                    href: "/resume",
-                    color: "hover:border-purple-500/40",
-                  },
+                  { icon: "📄", label: "Update My Resume", href: "/resume" },
                   {
                     icon: "✉️",
                     label: "Write Cover Letter",
                     href: "/cover-letter",
-                    color: "hover:border-green-500/40",
                   },
                 ].map((action) => (
                   <Link
                     key={action.label}
                     href={action.href}
-                    className={`flex items-center gap-3 bg-slate-800 border border-slate-700 ${action.color} rounded-xl px-4 py-3 text-sm font-medium transition`}
+                    className="flex items-center gap-3 bg-slate-800 border border-slate-700 hover:border-blue-500/40 rounded-xl px-4 py-3 text-sm font-medium transition"
                   >
                     <span className="text-xl">{action.icon}</span>
                     {action.label}

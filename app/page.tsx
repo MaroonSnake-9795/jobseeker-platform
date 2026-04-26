@@ -15,6 +15,9 @@ export default function Home() {
           <Link href="/jobs" className="hover:text-white transition">
             Find Jobs
           </Link>
+          <Link href="/auto-apply" className="hover:text-white transition">
+            Auto-Apply
+          </Link>
           <Link href="/community" className="hover:text-white transition">
             Community
           </Link>
@@ -29,6 +32,7 @@ export default function Home() {
           </Link>
         </div>
       </nav>
+
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-32">
         <div className="bg-blue-500/10 text-blue-400 text-sm px-4 py-1.5 rounded-full mb-6 border border-blue-500/20">
@@ -99,7 +103,7 @@ export default function Home() {
               icon: "⚡",
               title: "Auto-Apply",
               desc: "Set your preferences and let our bot apply to matching jobs automatically on your behalf.",
-              href: "/dashboard",
+              href: "/auto-apply",
             },
             {
               icon: "✉️",
@@ -145,7 +149,7 @@ export default function Home() {
         </p>
         <Link
           href="/auth"
-          className="bg-blue-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-400 transition"
+          className="bg-blue-500 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-400 transition inline-block"
         >
           Get Started for Free
         </Link>
@@ -153,7 +157,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center py-8 text-slate-600 text-sm border-t border-slate-800">
-        © 2025 JobSync. Built for job seekers, by job seekers.
+        © 2026 JobSync. Built for job seekers, by job seekers.
       </footer>
     </main>
   );

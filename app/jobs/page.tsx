@@ -58,11 +58,14 @@ export default function JobsPage() {
           <Link href="/jobs" className="text-white font-medium">
             Find Jobs
           </Link>
-          <Link href="/community" className="hover:text-white transition">
-            Community
+          <Link href="/auto-apply" className="hover:text-white transition">
+            Auto-Apply
           </Link>
           <Link href="/resume" className="hover:text-white transition">
             Resume
+          </Link>
+          <Link href="/community" className="hover:text-white transition">
+            Community
           </Link>
           <Link href="/dashboard" className="hover:text-white transition">
             Dashboard

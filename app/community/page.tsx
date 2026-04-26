@@ -147,17 +147,6 @@ const posts = [
   },
 ];
 
-const categoryColors: Record<string, string> = {
-  Salary: "bg-yellow-500/20 text-yellow-400",
-  "Work Culture": "bg-blue-500/20 text-blue-400",
-  Ambience: "bg-pink-500/20 text-pink-400",
-  Management: "bg-red-500/20 text-red-400",
-  "Work-Life Balance": "bg-purple-500/20 text-purple-400",
-  Growth: "bg-teal-500/20 text-teal-400",
-  Referral: "bg-green-500/20 text-green-400",
-  Tips: "bg-orange-500/20 text-orange-400",
-};
-
 export default function CommunityPage() {
   const [liked, setLiked] = useState<number[]>([]);
   const [newPost, setNewPost] = useState("");
@@ -193,6 +182,9 @@ export default function CommunityPage() {
         <div className="flex items-center gap-6 text-sm text-slate-400">
           <Link href="/jobs" className="hover:text-white transition">
             Find Jobs
+          </Link>
+          <Link href="/auto-apply" className="hover:text-white transition">
+            Auto-Apply
           </Link>
           <Link href="/community" className="text-white font-medium">
             Community
@@ -235,11 +227,8 @@ export default function CommunityPage() {
                 rows={3}
                 className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none focus:border-blue-500 transition resize-none"
               />
-
-              {/* Post Options */}
               <div className="flex items-center justify-between mt-3 flex-wrap gap-3">
                 <div className="flex items-center gap-3 flex-wrap">
-                  {/* Category Selector */}
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
@@ -253,8 +242,6 @@ export default function CommunityPage() {
                         </option>
                       ))}
                   </select>
-
-                  {/* Anonymous Toggle */}
                   <button
                     onClick={() => setIsAnonymous(!isAnonymous)}
                     className={`flex items-center gap-2 text-xs px-3 py-2 rounded-lg border transition ${
@@ -267,7 +254,6 @@ export default function CommunityPage() {
                     {isAnonymous ? "Posting Anonymously" : "Post Anonymously"}
                   </button>
                 </div>
-
                 <button
                   disabled={!newPost.trim()}
                   onClick={() => setNewPost("")}
